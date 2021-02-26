@@ -6,3 +6,6 @@ Script for fresh Proxmox install
 2. Disable PVE Enterprise app list
 3. Enables iommu (may require extra work depending on your setup)
 4. Updates Proxmox
+
+## How to Run
+bash <(curl -s https://raw.githubusercontent.com/HoleInTheSeat/ProxmoxStater/main/pve_starter.sh)
