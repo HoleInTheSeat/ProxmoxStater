@@ -63,7 +63,6 @@ fi
 ##Update Proxmox##
 pveupgrade
 
-
 ###remove subcription warning###
 read -p "Remove Subscription warning? " -n 1 -r
 echo "This will restart the web interface, and you will lose connection to your current web shell session if you run this"
