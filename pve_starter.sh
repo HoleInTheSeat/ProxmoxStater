@@ -28,15 +28,18 @@ do
             cp /etc/default/grub /etc/default/grub.bak
             sed -i '9s/.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"/' /etc/default/grub
             update-grub
+            break
             ;;
         "Enable AMD")
             echo "Enabling for AMD"
             cp /etc/default/grub /etc/default/grub.bak
             sed -i '9s/.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on"/' /etc/default/grub
             update-grub
+            break
             ;;
         "Do not enable")
             echo "Skipping IOMMU..."
+            break
             ;;
         *) echo "invalid option $REPLY";;
     esac
