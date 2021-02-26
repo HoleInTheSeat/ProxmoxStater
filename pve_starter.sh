@@ -9,6 +9,9 @@ then
 fi
 
 ###remove enterprise apt list###
+echo
+echo
+echo
 read -p "Remove Enterprise apt list? " -n 1 -r
 echo (DO NOT DO THIS IF YOU HAVE AN ENTERPRISE SUBSCRIPTION)
 echo
@@ -20,17 +23,50 @@ mv /etc/apt/sources.list.d/pve-enterprise2.list /etc/apt/sources.list.d/pve-ente
 fi
 
 ###enable iommu###
-cp /etc/default/grub /etc/default/grub.bak
+echo
+echo
+echo
+PS3='IOMMU Options: '
+options=("Enable Intel" "Enable AMD" "Do not enable")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Option 1")
+            echo "Enabling for Intel"
+            cp /etc/default/grub /etc/default/grub.bak
+            sed -i '9s/.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"/' /etc/default/grub
+            update-grub
+            ;;
+        "Option 2")
+            echo "Enabling for AMD"
+            cp /etc/default/grub /etc/default/grub.bak
+            sed -i '9s/.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on"/' /etc/default/grub
+            update-grub
+            ;;
+        "Option 3")
+            echo "Skipping IOMMU..."
+            ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done
 
-sed -i '9s/.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"/' /etc/default/grub
-sed -i '9s/.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on"/' /etc/default/grub
-update-grub
 ##edit modules##
+read -p "Edit modules? " -n 1 -r
+echo "ENTRIES TO BE ADD TO /etc/modules:"
+echo "vfio"
+echo "vfio_iommu_type1"
+echo "vfio_pci"
+echo "vfio_virqfd"
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
 cp /etc/modules /etc/modules.bak
 echo vfio >> /etc/modules
 echo vfio_iommu_type1 >> /etc/modules
 echo vfio_pci >> /etc/modules
 echo vfio_virqfd >> /etc/modules
+fi
 
-
+##Update Proxmox##
 pveupgrade
+
+echo FINISHED!
