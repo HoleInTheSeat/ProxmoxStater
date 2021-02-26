@@ -46,6 +46,9 @@ do
 done
 
 ##edit modules##
+echo
+echo
+echo
 echo "Edit Modules?"
 echo "ENTRIES TO BE ADD TO /etc/modules:"
 echo "vfio"
@@ -64,6 +67,9 @@ echo vfio_virqfd >> /etc/modules
 fi
 
 ##Update Proxmox##
+echo
+echo
+echo
 read -p "Update Proxmox?" -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -71,6 +77,9 @@ pveupgrade
 fi
 
 ###remove subcription warning###
+echo
+echo
+echo
 read -p "Remove Subscription warning? " -n 1 -r
 echo "This will restart the web interface, and you will lose connection to your current web shell session if you run this"
 echo
