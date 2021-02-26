@@ -85,12 +85,6 @@ echo
 echo
 echo
 
-read -p "" -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
- fi
-
 echo "Remove Subscription warning? "
 PS3='This will restart the web interface, and you will lose connection to your current web shell session if you run this'
 options=("Remove" "Remove and Reboot" "Do not Remove")
