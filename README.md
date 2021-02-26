@@ -10,3 +10,6 @@ Script for fresh Proxmox install
 
 ## How to Run
 bash <(curl -s https://raw.githubusercontent.com/HoleInTheSeat/ProxmoxStater/main/pve_starter.sh)
+
+## Check your work
+bash <(curl -s https://raw.githubusercontent.com/HoleInTheSeat/ProxmoxStater/main/check.sh)
