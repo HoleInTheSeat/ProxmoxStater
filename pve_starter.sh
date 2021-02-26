@@ -80,8 +80,8 @@ fi
 echo
 echo
 echo
-read -p "Remove Subscription warning? " -n 1 -r
-echo "This will restart the web interface, and you will lose connection to your current web shell session if you run this"
+echo "Remove Subscription warning? "
+read -p "This will restart the web interface, and you will lose connection to your current web shell session if you run this" -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
