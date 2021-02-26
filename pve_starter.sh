@@ -1,13 +1,5 @@
  #!/bin/bash
 
-###remove subcription warning###
-read -p "Remove Subscription warning? " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
- sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js && systemctl restart pveproxy.service
-fi
-
 ###remove enterprise apt list###
 echo
 echo
@@ -71,4 +63,12 @@ fi
 ##Update Proxmox##
 pveupgrade
 
-echo FINISHED!
+
+###remove subcription warning###
+read -p "Remove Subscription warning? " -n 1 -r
+echo "This will restart the web interface, and you will lose connection to your current web shell session if you run this"
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+ sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js && systemctl restart pveproxy.service
+fi
