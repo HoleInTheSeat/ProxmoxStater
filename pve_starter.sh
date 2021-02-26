@@ -4,8 +4,8 @@
 echo
 echo
 echo
-read -p "Remove Enterprise apt list? " -n 1 -r
-echo "DO NOT DO THIS IF YOU HAVE AN ENTERPRISE SUBSCRIPTION"
+echo "Remove Enterprise apt list? "
+read -p "DO NOT DO THIS IF YOU HAVE AN ENTERPRISE SUBSCRIPTION" -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
