@@ -84,10 +84,35 @@ fi
 echo
 echo
 echo
-echo "Remove Subscription warning? "
-read -p "This will restart the web interface, and you will lose connection to your current web shell session if you run this" -n 1 -r
+
+read -p "" -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
- sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js && systemctl restart pveproxy.service
-fi
+ fi
+
+echo "Remove Subscription warning? "
+PS3='This will restart the web interface, and you will lose connection to your current web shell session if you run this'
+options=("Remove" "Remove and Reboot" "Do not Remove")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Remove")
+            echo "Removing..."
+            sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js && systemctl restart pveproxy.service
+            break
+            ;;
+        "Remove and Reboot")
+            echo "Removing and Rebooting"
+            sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js && systemctl restart pveproxy.service
+            reboot now
+            break
+            ;;
+        "Do not Remove")
+            echo "Done!"
+            echo "It is recommended to reboot your system!"
+            break
+            ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done
