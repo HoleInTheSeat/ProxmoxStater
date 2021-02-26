@@ -4,8 +4,7 @@
 echo
 echo
 echo
-echo "Remove Enterprise apt list? "
-read -p "DO NOT DO THIS IF YOU HAVE AN ENTERPRISE SUBSCRIPTION" -n 1 -r
+read -p "Remove Enterprise apt list? (Y/N) " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
@@ -60,7 +59,7 @@ echo "vfio_iommu_type1"
 echo "vfio_pci"
 echo "vfio_virqfd"
 
-read -p "" -n 1 -r
+read -p "Y/N? " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
 cp /etc/modules /etc/modules.bak
@@ -85,7 +84,7 @@ echo
 echo
 echo
 
-echo "Remove Subscription warning? "
+echo "Remove Subscription warning? (Y/N) "
 PS3='This will restart the web interface, and you will lose connection to your current web shell session if you run this'
 options=("Remove" "Remove and Reboot" "Do not Remove")
 select opt in "${options[@]}"
