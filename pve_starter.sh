@@ -27,14 +27,18 @@ do
             echo "Enabling for Intel"
             cp /etc/default/grub /etc/default/grub.bak
             sed -i '9s/.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"/' /etc/default/grub
-            update-grub
+            echo "Updating Grub..."
+            update-grub &>grub.log
+            echo "Grub update finished!"
             break
             ;;
         "Enable AMD")
             echo "Enabling for AMD"
             cp /etc/default/grub /etc/default/grub.bak
             sed -i '9s/.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on"/' /etc/default/grub
-            update-grub
+            echo "Updating Grub..."
+            update-grub &>grub.log
+            echo "Grub update finished!"
             break
             ;;
         "Do not enable")
