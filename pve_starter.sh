@@ -31,19 +31,19 @@ options=("Enable Intel" "Enable AMD" "Do not enable")
 select opt in "${options[@]}"
 do
     case $opt in
-        "Option 1")
+        "Enable Intel")
             echo "Enabling for Intel"
             cp /etc/default/grub /etc/default/grub.bak
             sed -i '9s/.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"/' /etc/default/grub
             update-grub
             ;;
-        "Option 2")
+        "Enable AMD")
             echo "Enabling for AMD"
             cp /etc/default/grub /etc/default/grub.bak
             sed -i '9s/.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on"/' /etc/default/grub
             update-grub
             ;;
-        "Option 3")
+        "Do not enable")
             echo "Skipping IOMMU..."
             ;;
         *) echo "invalid option $REPLY";;
@@ -51,12 +51,14 @@ do
 done
 
 ##edit modules##
-read -p "Edit modules? " -n 1 -r
+echo "Edit Modules?"
 echo "ENTRIES TO BE ADD TO /etc/modules:"
 echo "vfio"
 echo "vfio_iommu_type1"
 echo "vfio_pci"
 echo "vfio_virqfd"
+
+read -p ">" -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
 cp /etc/modules /etc/modules.bak
