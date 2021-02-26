@@ -18,3 +18,19 @@ cp /etc/apt/sources.list.d/pve-enterprise.list /etc/apt/sources.list.d/pve-enter
 sed '1 s/./#&/' /etc/apt/sources.list.d/pve-enterprise.list >/etc/apt/sources.list.d/pve-enterprise2.list
 mv /etc/apt/sources.list.d/pve-enterprise2.list /etc/apt/sources.list.d/pve-enterprise.list
 fi
+
+###enable iommu###
+cp /etc/default/grub /etc/default/grub.bak
+
+sed -i '9s/.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"/' /etc/default/grub
+sed -i '9s/.*/GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on"/' /etc/default/grub
+update-grub
+##edit modules##
+cp /etc/modules /etc/modules.bak
+echo vfio >> /etc/modules
+echo vfio_iommu_type1 >> /etc/modules
+echo vfio_pci >> /etc/modules
+echo vfio_virqfd >> /etc/modules
+
+
+pveupgrade
