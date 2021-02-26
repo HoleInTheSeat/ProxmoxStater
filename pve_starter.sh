@@ -50,7 +50,7 @@ echo "vfio_iommu_type1"
 echo "vfio_pci"
 echo "vfio_virqfd"
 
-read -p ">" -n 1 -r
+read -p "" -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
 cp /etc/modules /etc/modules.bak
@@ -61,7 +61,11 @@ echo vfio_virqfd >> /etc/modules
 fi
 
 ##Update Proxmox##
+read -p "Update Proxmox?" -n 1 -r
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
 pveupgrade
+fi
 
 ###remove subcription warning###
 read -p "Remove Subscription warning? " -n 1 -r
