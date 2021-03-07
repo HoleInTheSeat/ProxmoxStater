@@ -58,7 +58,7 @@ echo "vfio"
 echo "vfio_iommu_type1"
 echo "vfio_pci"
 echo "vfio_virqfd"
-
+echo
 read -p "Y/N? " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
